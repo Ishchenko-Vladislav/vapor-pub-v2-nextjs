@@ -1,0 +1,41 @@
+"use client";
+// import { PAGES_ROUTE, TOKENS_ENUM } from "@/utils/constants";
+import { usePathname, useRouter } from "next/navigation";
+// import { cookies } from "next/headers";
+import Cookie from "js-cookie";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { useAuthorization } from "@/hooks/auth/useAuthorization";
+// import { AuthService } from "@/services/auth/auth.service";
+// import { IAuthUser, useIsAuth } from "@/hooks/useAuth";
+// import { Preloader } from "@/components/preloader/Preloader";
+
+interface IAuthorizationContext {
+  // user: any;
+  isAuth: boolean;
+  setIsAuth: Dispatch<SetStateAction<boolean>>;
+}
+
+const AuthorizationContext = createContext({} as IAuthorizationContext);
+export const useAuth = () => {
+  return useContext(AuthorizationContext);
+};
+export const AuthorizationProvider = ({ children }: { children: ReactNode }) => {
+  // const { isLoading, user } = useIsAuth();
+  const { isAuth, setIsAuth } = useAuthorization();
+  // if (isLoading) return <Preloader />;
+  return (
+    <AuthorizationContext.Provider value={{ isAuth, setIsAuth }}>
+      {children}
+    </AuthorizationContext.Provider>
+  );
+};
+
+// const publicRoute = [PAGES_ROUTE.login, PAGES_ROUTE.register];
