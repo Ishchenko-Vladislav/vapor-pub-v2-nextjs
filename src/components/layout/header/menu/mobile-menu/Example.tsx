@@ -60,8 +60,8 @@ const Example: FC<Props> = () => {
           </div>
         </div>
       </DialogPortal> */}
-      <DialogContent className="w-screen min-h-screen h-full max-w-full border-none">
-        <div className="w-full h-full flex flex-col">
+      <DialogContent className="w-screen h-[100dvh] max-w-full border-none">
+        <div className="w-full h-full flex flex-col py-5">
           <div className="mx-auto pb-5">Меню</div>
           <div className="w-full h-full flex flex-col gap-6 text-center justify-center text-xl">
             <DialogClose asChild>
