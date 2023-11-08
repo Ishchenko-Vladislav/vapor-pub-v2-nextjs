@@ -9,33 +9,15 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/lib/firebase.config";
 import { doc, onSnapshot } from "firebase/firestore";
 import { TUser, userSchema } from "@/lib/schema";
+import { useAuthState } from "./useAuthState";
 // import { isServer } from "@tanstack/react-query";
 
 export const useAuthorization = () => {
-  const [authed, setAuthed] = useState<User | null>(null);
+  // const [authed, setAuthed] = useState<User | null>(null);
+  const { authed, isLoading } = useAuthState();
   const [user, setUser] = useState<TUser | null>(null);
   const pathname = usePathname();
   const { replace } = useRouter();
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      console.log("on auth state", user);
-      if (user) {
-        const uid = user.uid;
-        if (isAuthPages(pathname)) {
-          replace("/profile");
-        }
-      } else {
-        if (isPrivatePages(pathname)) {
-          replace("/login");
-        }
-      }
-      setAuthed(user);
-    });
-
-    return () => {
-      unsub();
-    };
-  }, []);
 
   useEffect(() => {
     if (authed) {
@@ -51,6 +33,7 @@ export const useAuthorization = () => {
   }, [authed]);
 
   useEffect(() => {
+    if (isLoading) void null;
     if (authed) {
       if (isAuthPages(pathname)) void replace("/profile");
     } else {
@@ -63,5 +46,5 @@ export const useAuthorization = () => {
   return { authed, user };
 };
 
-const isAuthPages = (pathname: string) => ["/login", "/register"].includes(pathname);
-const isPrivatePages = (pathname: string) => pathname.includes("profile");
+export const isAuthPages = (pathname: string) => ["/login", "/register"].includes(pathname);
+export const isPrivatePages = (pathname: string) => pathname.includes("profile");

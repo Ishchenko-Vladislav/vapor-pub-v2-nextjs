@@ -30,19 +30,18 @@ const page = (props: Props) => {
                 </Button>
               </div>
               <div className="relative max-w-md w-full aspect-square bg-secondary">
-                {/* <Image
+                <Image
                   quality={100}
                   fill
                   sizes=""
                   src={"/no_order_image.jpg"}
                   alt="no order image"
-                  className="mix-blend-color-burn"
-                /> */}
-                <img
+                />
+                {/* <img
                   className="mix-blend-darken"
                   src="/no_order_image.jpg"
                   alt="no_order_image.jpg"
-                />
+                /> */}
               </div>
             </div>
           </div>
