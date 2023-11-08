@@ -62,16 +62,22 @@ const Example: FC<Props> = () => {
       </DialogPortal> */}
       <DialogContent className="w-screen h-screen max-w-full border-none">
         <div className="w-full h-full flex flex-col">
-          <div className="mx-auto pb-5">Menu</div>
-          <div className="w-full h-full flex flex-col gap-4 text-center justify-center text-xl">
-            <div>
-              <Link href={"/blog"}>Блог</Link>
-            </div>
+          <div className="mx-auto pb-5">Меню</div>
+          <div className="w-full h-full flex flex-col gap-6 text-center justify-center text-xl">
             <div>
               <Link href={"/catalog"}>Каталог</Link>
             </div>
             <div>
               <Link href={"/profile"}>Профиль</Link>
+            </div>
+            <div>
+              <Link href={"/garantiya"}>Гарантия</Link>
+            </div>
+            <div>
+              <Link href={"/delivery"}>Оплата и доставка</Link>
+            </div>
+            <div>
+              <Link href={"/blog"}>Блог</Link>
             </div>
           </div>
           <div className="flex justify-around">
