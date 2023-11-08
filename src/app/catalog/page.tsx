@@ -5,6 +5,7 @@ import React from "react";
 import { CgOptions } from "react-icons/cg";
 import { RiShoppingBagLine } from "react-icons/ri";
 
+const im = "";
 interface Props {}
 
 const page = (props: Props) => {
@@ -28,19 +29,15 @@ const page = (props: Props) => {
             </div>
           </div>
           <div className="flex gap-2 items-start px-2">
-            <Filter />
+            {/* <Filter /> */}
             {/* <div className="fixed bottom-10 right-4 p-2 rounded-full bg-primary opacity-50 z-50">
               <CgOptions />
             </div> */}
-            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 xs:mx-0 mx-auto xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 ">
               {arr.map((el) => (
-                <div className=" w-full h-auto p-2 border border-border rounded-xl">
-                  <div className="w-4/5 mx-auto aspect-square">
-                    <img
-                      src="https://alishop.kiev.ua/image/cache/catalog/image/cache/catalog/Easyphoto/2277/elf-bar-1500-disposable-odnorazovaya-39-500x500.webp"
-                      alt="dd"
-                      className="w-full object-contain"
-                    />
+                <div className=" w-full h-auto p-2 border border-border rounded-xl bg-secondary max-w-xs">
+                  <div className="w-full mx-auto aspect-square">
+                    <img src="1.jpg" alt="dd" className="w-full object-contain mix-blend-darken" />
                   </div>
                   <div className="pt-4 px-1">
                     <div className="text-sm">

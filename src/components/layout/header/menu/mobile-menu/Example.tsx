@@ -76,7 +76,7 @@ const Example: FC<Props> = () => {
           </div>
           <div className="flex justify-around">
             {links.map((item) => (
-              <div className="flex flex-col justify-center items-center">
+              <div key={item.title} className="flex flex-col justify-center items-center">
                 <span className="text-xs">{item.title}</span>
                 <Link target="_blank" href={item.link}>
                   {item.icon({ size: "1.3rem" })}

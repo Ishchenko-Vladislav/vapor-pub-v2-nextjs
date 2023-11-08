@@ -30,7 +30,7 @@ const formSchema = z.object({
 interface Props {}
 
 export const LoginForm: FC<Props> = () => {
-  const { mutate, isSuccess } = useLogin({ redirect: "/profile" });
+  const { login, isLoading, isSuccess } = useLogin({ redirect: "/profile" });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,7 +45,7 @@ export const LoginForm: FC<Props> = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    mutate(values);
+    login(values);
   }
   return (
     <Form {...form}>

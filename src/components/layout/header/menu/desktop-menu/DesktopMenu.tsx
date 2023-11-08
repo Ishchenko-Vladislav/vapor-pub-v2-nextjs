@@ -18,13 +18,13 @@ interface Props {}
 
 const DesktopMenu: FC<Props> = () => {
   const [openCart, setOpenCart] = useState(false);
-  const { isAuth } = useAuth();
+  const { authed } = useAuth();
   const close = () => setOpenCart(false);
   return (
     <div className="items-center gap-1 sm:flex hidden">
-      {isAuth ? (
+      {authed ? (
         <Link
-          className="hover:text-primary p-2 rounded-full hover:bg-accent transition-colors text-base"
+          className="hover:text-primary p-2 rounded-full hover:bg-background transition-colors text-base"
           href={"/profile"}
         >
           <HiOutlineUser />
@@ -35,7 +35,7 @@ const DesktopMenu: FC<Props> = () => {
 
       <button
         onClick={() => setOpenCart(true)}
-        className="hover:text-primary p-2 rounded-full hover:bg-accent transition-colors text-base"
+        className="hover:text-primary p-2 rounded-full hover:bg-background transition-colors text-base"
       >
         {/* <RiShoppingBagLine /> */}
         {/* <LiaShoppingBagSolid /> */}

@@ -20,7 +20,7 @@ export const Header: FC<Props> = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   return (
-    <div className="border-b-2 border-border py-5 sticky top-0 bg-background z-50 w-full h-fit px-2">
+    <div className="border-b border-border py-3 sticky top-0 bg-secondary z-50 w-full h-fit px-2">
       <div className="flex items-center max-w-6xl w-full mx-auto gap-4 font-medium justify-between">
         <Link className="text-xl" href={"/"}>
           Vapor{" "}
@@ -37,6 +37,16 @@ export const Header: FC<Props> = () => {
           <Button className="text-foreground" variant={"link"} asChild>
             <Link className="" href={"/catalog"}>
               Каталог
+            </Link>
+          </Button>
+          <Button className="text-foreground" variant={"link"} asChild>
+            <Link className="" href={"/garantiya"}>
+              Гарантия
+            </Link>
+          </Button>
+          <Button className="text-foreground" variant={"link"} asChild>
+            <Link className="" href={"/delivery"}>
+              Оплата и доставка
             </Link>
           </Button>
         </div>

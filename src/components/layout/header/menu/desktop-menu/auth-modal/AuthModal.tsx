@@ -1,4 +1,5 @@
 "use client";
+import { LoginWithGoogle } from "@/components/auth/LoginWithGoogle";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -30,7 +31,7 @@ const formSchema = z.object({
   password: z.string(),
 });
 export const AuthModal = () => {
-  const { mutate, isSuccess } = useLogin({});
+  const { login, isSuccess } = useLogin();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,10 +44,10 @@ export const AuthModal = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    mutate(values);
+    login(values);
   }
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess === "isSuccess") {
       form.reset();
       buttonCloseRef.current?.click();
     }
@@ -60,7 +61,7 @@ export const AuthModal = () => {
           <div>Авторизация</div>
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Войти</DialogTitle>
         </DialogHeader>
@@ -94,16 +95,24 @@ export const AuthModal = () => {
             />
             {/* <Button type="submit">Войти</Button> */}
             <div className="flex gap-4 items-center">
-              <Button type="submit">войти</Button>
+              <Button type="submit">Войти</Button>
               <DialogClose asChild>
                 <Button type="button" variant={"ghost"} asChild>
-                  <Link href={"/register"}>регистрация</Link>
+                  <Link href={"/register"}>Регистрация</Link>
                 </Button>
               </DialogClose>
               <DialogClose ref={buttonCloseRef} />
             </div>
           </form>
         </Form>
+        <div className="flex gap-5 items-center w-full">
+          <div className="w-full h-[1px] bg-border"></div>
+          <div className="text-muted-foreground">или</div>
+          <div className="w-full h-[1px] bg-border"></div>
+        </div>
+        <div className="w-fit mx-auto">
+          <LoginWithGoogle />
+        </div>
         {/* <div className="flex flex-col gap-4 pt-8">
           <Input placeholder="E-mail" />
           <Input placeholder="Password" />

@@ -18,9 +18,12 @@ import { Button } from "@/components/ui/button";
 import { useRegister } from "@/hooks/auth/useRegister";
 const formSchema = z
   .object({
-    username: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
-    }),
+    username: z
+      .string()
+      .min(2, {
+        message: "Имя пользователя должно быть больше 2 символов",
+      })
+      .max(70, "Имя пользователя должно быть меньше 70 символов"),
     email: z.string().email("Неверный формат email"),
     password: z
       .string()
@@ -45,7 +48,7 @@ const formSchema = z
 interface Props {}
 
 export const RegisterForm: FC<Props> = () => {
-  const { mutate } = useRegister({ redirect: "/profile" });
+  const { register } = useRegister({ redirect: "/profile" });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,7 +66,7 @@ export const RegisterForm: FC<Props> = () => {
     // ✅ This will be type-safe and validated.
     console.log(values);
     const { confirmPassword, ...payload } = values;
-    mutate(payload);
+    register(payload);
   }
   return (
     <Form {...form}>

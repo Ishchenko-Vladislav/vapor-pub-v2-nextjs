@@ -13,14 +13,16 @@ import {
   useState,
 } from "react";
 import { useAuthorization } from "@/hooks/auth/useAuthorization";
+import { TUser } from "@/lib/schema";
+import { User } from "firebase/auth";
 // import { AuthService } from "@/services/auth/auth.service";
 // import { IAuthUser, useIsAuth } from "@/hooks/useAuth";
 // import { Preloader } from "@/components/preloader/Preloader";
 
 interface IAuthorizationContext {
   // user: any;
-  isAuth: boolean;
-  setIsAuth: Dispatch<SetStateAction<boolean>>;
+  authed: User | null;
+  user: TUser | null;
 }
 
 const AuthorizationContext = createContext({} as IAuthorizationContext);
@@ -28,11 +30,9 @@ export const useAuth = () => {
   return useContext(AuthorizationContext);
 };
 export const AuthorizationProvider = ({ children }: { children: ReactNode }) => {
-  // const { isLoading, user } = useIsAuth();
-  const { isAuth, setIsAuth } = useAuthorization();
-  // if (isLoading) return <Preloader />;
+  const { authed, user } = useAuthorization();
   return (
-    <AuthorizationContext.Provider value={{ isAuth, setIsAuth }}>
+    <AuthorizationContext.Provider value={{ authed, user }}>
       {children}
     </AuthorizationContext.Provider>
   );
