@@ -64,21 +64,21 @@ const Example: FC<Props> = () => {
         <div className="w-full h-full flex flex-col">
           <div className="mx-auto pb-5">Меню</div>
           <div className="w-full h-full flex flex-col gap-6 text-center justify-center text-xl">
-            <div>
+            <DialogClose asChild>
               <Link href={"/catalog"}>Каталог</Link>
-            </div>
-            <div>
+            </DialogClose>
+            <DialogClose asChild>
               <Link href={"/profile"}>Профиль</Link>
-            </div>
-            <div>
+            </DialogClose>
+            <DialogClose asChild>
               <Link href={"/garantiya"}>Гарантия</Link>
-            </div>
-            <div>
+            </DialogClose>
+            <DialogClose asChild>
               <Link href={"/delivery"}>Оплата и доставка</Link>
-            </div>
-            <div>
+            </DialogClose>
+            <DialogClose asChild>
               <Link href={"/blog"}>Блог</Link>
-            </div>
+            </DialogClose>
           </div>
           <div className="flex justify-around">
             {links.map((item) => (
