@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 import {
   Dialog,
@@ -18,6 +19,7 @@ import { SiTelegram } from "react-icons/si";
 import { RiCloseLine } from "react-icons/ri";
 import { IconBaseProps } from "react-icons";
 import Link from "next/link";
+import { useAuth } from "@/context/Authorization";
 interface Ilinks {
   title: string;
   icon: (className?: IconBaseProps) => JSX.Element;
@@ -38,6 +40,7 @@ export const links: Ilinks[] = [
 interface Props {}
 
 const Example: FC<Props> = () => {
+  const { authed } = useAuth();
   return (
     <Dialog>
       <DialogTrigger>
@@ -68,7 +71,9 @@ const Example: FC<Props> = () => {
               <Link href={"/catalog"}>Каталог</Link>
             </DialogClose>
             <DialogClose asChild>
-              <Link href={"/profile"}>Профиль</Link>
+              <Link href={authed ? "/profile" : "/login"}>
+                {authed ? "Профиль" : "Авторизация"}
+              </Link>
             </DialogClose>
             <DialogClose asChild>
               <Link href={"/garantiya"}>Гарантия</Link>
