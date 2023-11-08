@@ -54,6 +54,8 @@ export const useAuthorization = () => {
     if (authed) {
       if (isAuthPages(pathname)) void replace("/profile");
     } else {
+      console.log("check private page", isPrivatePages(pathname));
+
       if (isPrivatePages(pathname)) void replace("/login");
     }
   }, [pathname]);
@@ -62,4 +64,4 @@ export const useAuthorization = () => {
 };
 
 const isAuthPages = (pathname: string) => ["/login", "/register"].includes(pathname);
-const isPrivatePages = (pathname: string) => "profile".includes(pathname);
+const isPrivatePages = (pathname: string) => pathname.includes("profile");

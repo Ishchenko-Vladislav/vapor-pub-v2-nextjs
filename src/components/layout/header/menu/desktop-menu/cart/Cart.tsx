@@ -36,7 +36,7 @@ export const Cart: FC<CartProps> = ({ close }) => {
         transition={{
           ease: "easeInOut",
         }}
-        className="max-w-lg w-full h-screen absolute top-0 right-0 bg-white  flex flex-col "
+        className="max-w-lg w-full h-[100dvh] absolute top-0 right-0 bg-white  flex flex-col "
         onClick={(e) => e.stopPropagation()}
       >
         <div className="overflow-y-auto flex flex-col pb-10 px-4 h-full">
