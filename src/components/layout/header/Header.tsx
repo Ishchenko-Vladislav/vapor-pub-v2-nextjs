@@ -5,10 +5,22 @@ import { RiShoppingBagLine } from "react-icons/ri";
 // import { Menu } from "./menu/Menu";
 import dynamic from "next/dynamic";
 import { useMediaQuery } from "react-responsive";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 // import { MobileMenu } from "./menu/MobileMenu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 interface Props {}
-const MobileMenu = dynamic(() => import("./menu/mobile-menu/Example"), {
+const MobileMenu = dynamic(() => import("./menu/mobile-menu/MobileMenu"), {
   ssr: false, // Отключаем SSR для динамической загрузки
   loading: () => <div></div>,
 });
@@ -29,16 +41,50 @@ export const Header: FC<Props> = () => {
           </sup>
         </Link>
         <div className="text-sm md:flex hidden">
-          <Button className="text-foreground" variant={"link"} asChild>
-            <Link className=" " href={"/blog"}>
-              Блог
-            </Link>
-          </Button>
-          <Button className="text-foreground" variant={"link"} asChild>
+          {/* <Button className="text-foreground" variant={"link"} asChild>
             <Link className="" href={"/catalog"}>
               Каталог
             </Link>
-          </Button>
+          </Button> */}
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger
+                  className={cn(
+                    "bg-transparent !text-foreground",
+                    buttonVariants({ variant: "link" })
+                  )}
+                >
+                  Каталог
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="">
+                  <div className="flex flex-col max-w-xs w-full">
+                    <NavigationMenuLink className="py-2 w-32 text-center hover:bg-accent" asChild>
+                      <Link href="/catalog">Все</Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink
+                      className="py-2 w-32 text-center hover:bg-accent"
+                      href="/vazol"
+                    >
+                      Vozol Gear
+                    </NavigationMenuLink>
+                    <NavigationMenuLink
+                      className="py-2 w-32 text-center hover:bg-accent"
+                      href="/vazol"
+                    >
+                      Vozol Star
+                    </NavigationMenuLink>
+                    <NavigationMenuLink
+                      className="py-2 w-32 text-center hover:bg-accent"
+                      href="/vazol"
+                    >
+                      Elfbar EBdesing
+                    </NavigationMenuLink>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
           <Button className="text-foreground" variant={"link"} asChild>
             <Link className="" href={"/garantiya"}>
               Гарантия
@@ -47,6 +93,11 @@ export const Header: FC<Props> = () => {
           <Button className="text-foreground" variant={"link"} asChild>
             <Link className="" href={"/delivery"}>
               Оплата и доставка
+            </Link>
+          </Button>
+          <Button className="text-foreground" variant={"link"} asChild>
+            <Link className=" " href={"/blog"}>
+              Блог
             </Link>
           </Button>
         </div>

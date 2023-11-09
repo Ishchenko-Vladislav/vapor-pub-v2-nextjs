@@ -14,7 +14,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({ children }) => {
         <main className="flex-1 relative z-0">{children}</main>
         <Footer />
       </div>
-      {/* <MobileMenuContainer /> */}
+      <MobileMenuContainer />
     </RootProvider>
   );
 };

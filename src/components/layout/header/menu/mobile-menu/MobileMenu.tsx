@@ -1,85 +1,103 @@
 "use client";
-import { FC, useEffect, useState } from "react";
-import { FaBarsStaggered } from "react-icons/fa6";
-import { motion, AnimatePresence } from "framer-motion";
-import { RiCloseLine, RiShoppingBagLine } from "react-icons/ri";
-import { AiOutlineHeart } from "react-icons/ai";
-import { HiOutlineUser } from "react-icons/hi2";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { FC } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogOverlay,
+  DialogPortal,
+  DialogClose,
+} from "@/components/ui/dialog";
 
+import { motion, AnimatePresence } from "framer-motion";
+
+import { FaBarsStaggered } from "react-icons/fa6";
+import { SiTelegram } from "react-icons/si";
+import { RiCloseLine } from "react-icons/ri";
+import { IconBaseProps } from "react-icons";
+import Link from "next/link";
+import { useAuth } from "@/context/Authorization";
+interface Ilinks {
+  title: string;
+  icon: (className?: IconBaseProps) => JSX.Element;
+  link: string;
+}
+export const links: Ilinks[] = [
+  {
+    icon: (className) => <SiTelegram {...className} />,
+    link: "https://t.me/vaporpubpost",
+    title: "Телеграм оператор",
+  },
+  {
+    icon: (className) => <SiTelegram {...className} />,
+    link: "https://t.me/vaporpub",
+    title: "Телеграм канал",
+  },
+];
 interface Props {}
 
 const MobileMenu: FC<Props> = () => {
-  const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
+  const { authed } = useAuth();
   return (
-    <div className="md:hidden block">
-      <button onClick={() => setOpen(true)}>
+    <Dialog>
+      <DialogTrigger>
         <FaBarsStaggered className="text-xl" />
-      </button>
-      <AnimatePresence>{open && <Menu close={close} />}</AnimatePresence>
-    </div>
+      </DialogTrigger>
+      {/* <DialogPortal>
+        <DialogOverlay />
+        <div className="w-screen h-screen fixed inset-0 bg-transparent flex flex-col items-end z-50">
+          <div className="max-w-sm w-full flex items-start h-full gap-2 absolute transition-all duration-1000">
+            <DialogClose>
+              <div className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center">
+                <RiCloseLine />
+              </div>
+            </DialogClose>
+            <div className="max-w-xs w-full h-full bg-background border-l border-border flex flex-col">
+              <div className="text-center py-2">
+                <span>Menu</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DialogPortal> */}
+      <DialogContent className="w-screen h-[100dvh] max-w-full border-none">
+        <div className="w-full h-full flex flex-col py-5">
+          <div className="mx-auto pb-5">Меню</div>
+          <div className="w-full h-full flex flex-col gap-6 text-center justify-center text-xl">
+            <DialogClose asChild>
+              <Link href={"/catalog"}>Каталог</Link>
+            </DialogClose>
+            <DialogClose asChild>
+              <Link href={authed ? "/profile" : "/login"}>
+                {authed ? "Профиль" : "Авторизация"}
+              </Link>
+            </DialogClose>
+            <DialogClose asChild>
+              <Link href={"/garantiya"}>Гарантия</Link>
+            </DialogClose>
+            <DialogClose asChild>
+              <Link href={"/delivery"}>Оплата и доставка</Link>
+            </DialogClose>
+            <DialogClose asChild>
+              <Link href={"/blog"}>Блог</Link>
+            </DialogClose>
+          </div>
+          <div className="flex justify-around">
+            {links.map((item) => (
+              <div key={item.title} className="flex flex-col justify-center items-center">
+                <span className="text-xs">{item.title}</span>
+                <Link target="_blank" href={item.link}>
+                  {item.icon({ size: "1.3rem" })}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 export default MobileMenu;
-
-type MenuProps = {
-  close: () => void;
-};
-const Menu: FC<MenuProps> = ({ close }) => {
-  const [style, setStyle] = useState("");
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  useEffect(() => {
-    const theCSSprop = window.getComputedStyle(document.body, null).overflow;
-    // console.log("theCSSprop", theCSSprop);
-    document.body.style.overflow = "hidden";
-    setStyle(theCSSprop);
-    return () => {
-      document.body.style.overflow = style;
-    };
-  }, []);
-  return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{ opacity: 0 }}
-      className={cn("fixed inset-0 w-screen h-screen bg-background z-10", {
-        ["z-50"]: open,
-      })}
-    >
-      <div className="flex flex-col p-4">
-        <div className="flex gap-2 items-center justify-end">
-          <div className="text-xl">Меню</div>
-          <button onClick={close} className="text-3xl">
-            <RiCloseLine />
-          </button>
-        </div>
-        <div className="flex gap-6 py-5 justify-center">
-          <Button onClick={close} variant={"outline"} size={"icon"}>
-            <RiShoppingBagLine />
-          </Button>
-          <Button onClick={close} variant={"outline"} size={"icon"}>
-            <AiOutlineHeart />
-          </Button>
-          <Button onClick={close} variant={"outline"} size={"icon"}>
-            <HiOutlineUser />
-          </Button>
-        </div>
-        <div className="flex flex-col gap-4">
-          <Link onClick={close} href={"/blog"}>
-            Блог
-          </Link>
-          <Link onClick={close} href={"/catalog"}>
-            Каталог
-          </Link>
-        </div>
-      </div>
-    </motion.div>
-  );
-};

@@ -33,9 +33,12 @@ const page = (props: Props) => {
             {/* <div className="fixed bottom-10 right-4 p-2 rounded-full bg-primary opacity-50 z-50">
               <CgOptions />
             </div> */}
-            <div className="grid grid-cols-1 xs:mx-0 mx-auto xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 ">
+            <div className="grid xs:mx-0 mx-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 xs:gap-4 ">
               {arr.map((el) => (
-                <div className=" w-full h-auto p-2 border border-border rounded-xl bg-secondary max-w-xs">
+                <div
+                  key={el}
+                  className=" w-full h-auto p-1 xs:p-2 border border-border rounded-xl bg-secondary max-w-xs"
+                >
                   <div className="w-full mx-auto aspect-square">
                     <img src="1.jpg" alt="dd" className="w-full object-contain mix-blend-darken" />
                   </div>
