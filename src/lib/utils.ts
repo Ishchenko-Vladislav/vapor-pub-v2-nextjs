@@ -43,3 +43,6 @@ export const getMessageFromError = (error: any) => {
     return "Something went wrong";
   }
 };
+
+export const numberToEUR = (number: number) =>
+  Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(number);

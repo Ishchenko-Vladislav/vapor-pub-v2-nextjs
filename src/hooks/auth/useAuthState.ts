@@ -12,7 +12,7 @@ export const useAuthState = () => {
   const pathname = usePathname();
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      console.log("on auth state", user);
+      // console.log("on auth state", user);
       if (user) {
         const uid = user.uid;
         if (isAuthPages(pathname)) {

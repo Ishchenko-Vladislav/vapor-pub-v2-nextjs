@@ -64,8 +64,12 @@ const MobileMenu: FC<Props> = () => {
         </div>
       </DialogPortal> */}
       <DialogContent className="w-screen h-[100dvh] max-w-full border-none">
+        <DialogClose className="absolute top-10 right-5 p-2">
+          <RiCloseLine />
+        </DialogClose>
         <div className="w-full h-full flex flex-col py-5">
           <div className="mx-auto pb-5">Меню</div>
+
           <div className="w-full h-full flex flex-col gap-6 text-center justify-center text-xl">
             <DialogClose asChild>
               <Link href={"/catalog"}>Каталог</Link>

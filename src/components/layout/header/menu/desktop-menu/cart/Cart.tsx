@@ -1,3 +1,4 @@
+"use client";
 import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -6,12 +7,15 @@ import Link from "next/link";
 import { CartEmpty } from "./cart-empty/CartEmpty";
 import { RiCloseLine } from "react-icons/ri";
 import { CartItem } from "./cart-item/CartItem";
+import { useCart } from "@/context/CartContext";
+import { numberToEUR } from "@/lib/utils";
 type CartProps = {
   close: () => void;
 };
 export const Cart: FC<CartProps> = ({ close }) => {
   const [style, setStyle] = useState("");
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const { cart, totalPrice, reset } = useCart();
+  // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   useEffect(() => {
     const theCSSprop = window.getComputedStyle(document.body, null).overflow;
     // console.log("theCSSprop", theCSSprop);
@@ -47,13 +51,17 @@ export const Cart: FC<CartProps> = ({ close }) => {
               </button>
               <div>Корзина</div>
             </div>
-            {!!arr.length ? <Button variant={"destructive"}>Очистить</Button> : null}
+            {!!cart.length ? (
+              <Button onClick={reset} variant={"destructive"}>
+                Очистить
+              </Button>
+            ) : null}
           </div>
-          {!!arr.length ? (
+          {!!cart.length ? (
             <div className="flex flex-col">
               <div className="flex flex-col gap-3">
-                {arr.map((el) => (
-                  <CartItem key={el} />
+                {cart.map((el) => (
+                  <CartItem key={el.id} {...el} />
                 ))}
               </div>
             </div>
@@ -61,13 +69,15 @@ export const Cart: FC<CartProps> = ({ close }) => {
             <CartEmpty />
           )}
         </div>
-        <div className="mt-auto w-full p-4 border-t rounded-t-xl border-border">
-          <div className="text-lg font-semibold">
-            <span>Итого:</span>
-            <span>200</span>
+        {cart.length ? (
+          <div className="mt-auto w-full p-4 border-t border-border">
+            <div className="text-lg font-semibold">
+              <span>Итого: </span>
+              <span>{numberToEUR(totalPrice)}</span>
+            </div>
+            <Button className="w-full">Оформить заказ</Button>
           </div>
-          <Button className="w-full">Оформить заказ</Button>
-        </div>
+        ) : null}
       </motion.div>
     </motion.div>
   );

@@ -27,7 +27,7 @@ export const CartEmpty: FC<Props> = () => {
       </div>
 
       <Button onClick={close} variant={"default"} asChild>
-        <Link href={"/"}>Перейти к каталогу</Link>
+        <Link href={"/catalog"}>Перейти к каталогу</Link>
       </Button>
     </div>
   );

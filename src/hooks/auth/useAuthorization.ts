@@ -24,7 +24,7 @@ export const useAuthorization = () => {
       const unsubscribe = onSnapshot(doc(db, "users", authed.uid), (doc) => {
         const d = doc.data();
         const user = userSchema.parse(d);
-        console.log("Current data: ", user);
+        // console.log("Current data: ", user);
         setUser(user);
         return () => unsubscribe();
       });
@@ -37,7 +37,7 @@ export const useAuthorization = () => {
     if (authed) {
       if (isAuthPages(pathname)) void replace("/profile");
     } else {
-      console.log("check private page", isPrivatePages(pathname));
+      // console.log("check private page", isPrivatePages(pathname));
 
       if (isPrivatePages(pathname)) void replace("/login");
     }

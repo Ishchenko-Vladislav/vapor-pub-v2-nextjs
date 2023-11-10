@@ -62,23 +62,14 @@ export const Header: FC<Props> = () => {
                     <NavigationMenuLink className="py-2 w-32 text-center hover:bg-accent" asChild>
                       <Link href="/catalog">Все</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink
-                      className="py-2 w-32 text-center hover:bg-accent"
-                      href="/vazol"
-                    >
-                      Vozol Gear
+                    <NavigationMenuLink className="py-2 w-32 text-center hover:bg-accent" asChild>
+                      <Link href="/catalog/vozol-gear">Vozol Gear</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink
-                      className="py-2 w-32 text-center hover:bg-accent"
-                      href="/vazol"
-                    >
-                      Vozol Star
+                    <NavigationMenuLink className="py-2 w-32 text-center hover:bg-accent" asChild>
+                      <Link href="/catalog/vozol-star">Vozol Star</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink
-                      className="py-2 w-32 text-center hover:bg-accent"
-                      href="/vazol"
-                    >
-                      Elfbar EBdesing
+                    <NavigationMenuLink className="py-2 w-32 text-center hover:bg-accent" asChild>
+                      <Link href="/catalog/elfbar-ebdesign">Elfbar EBdesing</Link>
                     </NavigationMenuLink>
                   </div>
                 </NavigationMenuContent>
