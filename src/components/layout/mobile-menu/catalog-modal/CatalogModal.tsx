@@ -24,7 +24,13 @@ export const CatalogModal: FC<Props> = () => {
         {/* <BiHomeAlt2
 
         /> */}
-        <RiApps2Line />
+
+        <div className="flex flex-col gap-1 justify-center items-center">
+          <RiApps2Line />
+          <div>
+            <span>Каталог</span>
+          </div>
+        </div>
       </DialogTrigger>
       <DialogPortal>
         <DialogClose>

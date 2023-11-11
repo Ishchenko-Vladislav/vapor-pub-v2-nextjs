@@ -24,30 +24,37 @@ const MobileMenu: FC<Props> = () => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious();
-    console.log("motion value", previous, latest);
-    if (latest > previous && latest > 200) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
-  });
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   const previous = scrollY.getPrevious();
+  //   console.log("motion value", previous, latest);
+  //   if (latest > previous && latest > 200) {
+  //     setHidden(true);
+  //   } else {
+  //     setHidden(false);
+  //   }
+  // });
   return (
     <motion.div
-      variants={{
-        visible: { y: -8, x: "-50%" },
-        hidden: { y: "100%", x: "-50%" },
-      }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35 }}
-      className="fixed bottom-0 left-1/2 max-w-xs w-full bg-background opacity-90 md:hidden rounded-xl h-12 text-foreground flex items-center px-2 justify-around z-40"
+      // variants={{
+      //   visible: { y: -8, x: "-50%" },
+      //   hidden: { y: "100%", x: "-50%" },
+      // }}
+      // animate={hidden ? "hidden" : "visible"}
+      // transition={{ duration: 0.35 }}
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-sm w-full bg-background  md:hidden rounded-xl h-14 text-foreground flex items-end px-2 justify-around py-1 z-40"
     >
       <CatalogModal />
       <CartModal />
-      <Link href={authed ? "/profile" : "/login"}>
-        <HiOutlineUser className="" />
-      </Link>
+      <div>
+        <div className="flex flex-col gap-1 justify-center items-center">
+          <Link href={authed ? "/profile" : "/login"}>
+            <HiOutlineUser className="" />
+          </Link>
+          <div>
+            <span>Профиль</span>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };
