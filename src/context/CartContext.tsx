@@ -1,5 +1,14 @@
 import { TProduct } from "@/lib/schema";
-import { FC, PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
+import {
+  FC,
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import toast from "react-hot-toast";
 
 type CartContextT = {
   cart: CartType[];
@@ -22,12 +31,20 @@ export function useCart() {
   return useContext(CartContext);
 }
 export const CartContextProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
-  const [cart, setCart] = useState<CartType[]>([]);
+  const [cart, setCart] = useState<CartType[]>(() => {
+    if (typeof window === "undefined") return [];
+    if (localStorage) {
+      const c = JSON.parse(localStorage.getItem("cart") ?? "[]");
+      return c;
+    }
+    return [];
+  });
 
   const increaseCartQuantity = (id: string, product: TProduct) => {
     const items = [...cart];
     if (items.find((item) => item.id === id) == null) {
       setCart([...cart, { id, quantity: 1, product }]);
+      toast.success("Товар добавлен в корзину", {});
     } else {
       const res = items.map((item) => {
         if (item.id === id) {
@@ -57,6 +74,14 @@ export const CartContextProvider: FC<PropsWithChildren<Props>> = ({ children }) 
   const removeFromCart = (id: string) => {
     setCart(cart.filter((item) => item.id !== id));
   };
+
+  useEffect(() => {
+    if (localStorage) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    return () => {};
+  }, [cart]);
 
   const totalPrice = useMemo(() => {
     return cart.reduce((acc, cur) => {

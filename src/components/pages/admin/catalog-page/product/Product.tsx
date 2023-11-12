@@ -48,6 +48,16 @@ import { numberToEUR } from "@/lib/utils";
 import { v4 } from "uuid";
 import { ProductRef } from "@/hooks/product/useGetAllProducts";
 import { useDeleteProduct } from "@/hooks/product/useDeleteProduct";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 interface Props {}
 const formSchema = z.object({
   title: z.string().default("Без названия"),
@@ -63,6 +73,7 @@ const formSchema = z.object({
     }),
   ]),
   //   price: z.number().default(0),
+  type: z.string(),
   price: z.coerce.number().min(0).default(0),
   status: z.boolean().default(false),
 });
@@ -277,6 +288,37 @@ export const Product: FC<ProductRef> = ({ id, product }) => {
                           <FormControl>
                             <Input type="number" placeholder="Введите цену" {...field} />
                           </FormControl>
+                          {/* <FormDescription>This is your public display name.</FormDescription> */}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="type"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Тип товара</FormLabel>
+
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Выберите тип товара" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Тип</SelectLabel>
+                                <SelectItem value="vozol-gear">Vozol Gear</SelectItem>
+                                <SelectItem value="vozol-star">Vozol Star</SelectItem>
+                                <SelectItem value="elfbar-ebdesing">Elfbar EBdesing</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+
+                          {/* <FormControl> */}
+                          {/* <Input type="number" placeholder="Введите цену" {...field} /> */}
+                          {/* </FormControl> */}
                           {/* <FormDescription>This is your public display name.</FormDescription> */}
                           <FormMessage />
                         </FormItem>

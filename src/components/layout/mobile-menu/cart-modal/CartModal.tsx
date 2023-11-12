@@ -14,23 +14,29 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { CartItem } from "../../header/menu/desktop-menu/cart/cart-item/CartItem";
+import { numberToEUR } from "@/lib/utils";
 
 interface Props {}
 
 export const CartModal: FC<Props> = () => {
-  const { cart, reset } = useCart();
+  const { cart, totalPrice, reset } = useCart();
   return (
     <Dialog>
-      <DialogTrigger>
-        <div className="flex flex-col gap-1 justify-center items-center">
+      <DialogTrigger className="webkit-highlight active:text-primary">
+        <div className="flex flex-col gap-1 justify-center items-center relative">
           <RiShoppingBagLine />
           <div>
             <span>Корзина</span>
           </div>
+          {cart && cart.length > 0 ? (
+            <div className="w-5 h-5 absolute -top-1 -right-2 flex justify-center items-center rounded-full text-white bg-primary text-sm">
+              {cart.length}
+            </div>
+          ) : null}
         </div>
       </DialogTrigger>
       <DialogContent className="w-screen h-[100dvh] max-w-full border-none overflow-y-auto flex flex-col">
-        <div className="w-full h-full flex flex-col flex-1 max-h-full overflow-y-auto">
+        <div className="w-full h-full flex flex-col flex-1 max-h-full overflow-y-auto pb-10">
           {!!cart.length ? (
             <div className="pb-20">
               <div>
@@ -71,7 +77,19 @@ export const CartModal: FC<Props> = () => {
             </div>
           )}
         </div>
-        <div className="fixed left-1/2 -translate-x-1/2 bottom-5 flex items-center gap-8">
+        <div className="w-full h-fit fixed left-0 bottom-0 bg-background pt-2 px-2">
+          <div className="flex items-center gap-2">
+            <div>Итого:</div>
+            <div>{numberToEUR(totalPrice)}</div>
+          </div>
+          <div className="w-full flex flex-col gap-2">
+            <Button>Оформить заказ</Button>
+            <DialogClose asChild>
+              <Button variant={"outline"}>Закрыть</Button>
+            </DialogClose>
+          </div>
+        </div>
+        {/* <div className="fixed left-1/2 -translate-x-1/2 bottom-5 flex items-center gap-8">
           {!!cart.length && (
             <DialogClose asChild>
               <Button onClick={reset} variant={"destructive"} className="">
@@ -81,18 +99,22 @@ export const CartModal: FC<Props> = () => {
           )}
 
           <DialogClose asChild>
-            <button className="rounded-full w-8 h-8 border border-primary flex justify-center items-center">
+            <button className="rounded-full bg-background w-8 h-8 border border-primary flex justify-center items-center webkit-highlight active:text-primary">
               <RiCloseLine className="scale-150" />
             </button>
           </DialogClose>
           {!!cart.length && (
             <DialogClose asChild>
-              <Button variant={"default"} className="">
+              <Button variant={"default"} className="relative">
+                <div className="p-2 absolute -top-5 bg-background flex flex-col text-foreground">
+                  <div>{numberToEUR(totalPrice)}</div>
+                  <div>Итого</div>
+                </div>
                 Оформить
               </Button>
             </DialogClose>
           )}
-        </div>
+        </div> */}
 
         {/* <div className="bg-white w-full h-full flex flex-col">
           <div className="flex flex-col w-full h-full pb-10">

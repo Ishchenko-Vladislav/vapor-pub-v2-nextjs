@@ -70,10 +70,19 @@ const MobileMenu: FC<Props> = () => {
         <div className="w-full h-full flex flex-col py-5">
           <div className="mx-auto pb-5">Меню</div>
 
-          <div className="w-full h-full flex flex-col gap-6 text-center justify-center text-xl">
+          <div className="w-full h-full flex flex-col gap-6 text-center justify-center text-2xl font-medium">
             <DialogClose asChild>
               <Link href={"/catalog"}>Каталог</Link>
             </DialogClose>
+            {/* <div>
+              <div>Каталог</div>
+              <div className="ml-2">
+                <div>Все</div>
+                <div>Vozol Gear</div>
+                <div>Vozol Star</div>
+                <div>Elfbar EBdesing</div>
+              </div>
+            </div> */}
             <DialogClose asChild>
               <Link href={authed ? "/profile" : "/login"}>
                 {authed ? "Профиль" : "Авторизация"}

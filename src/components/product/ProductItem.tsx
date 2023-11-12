@@ -59,14 +59,14 @@ export const ProductItem: FC<ProductRef> = ({ id, product }) => {
           {cart.find((el) => el.id === id) ? (
             <button
               onClick={() => removeFromCart(id)}
-              className="p-2 rounded-full hover:bg-background text-red-500 cursor-pointer transition-colors "
+              className="p-2 rounded-full webkit-highlight hover:bg-background text-red-500 cursor-pointer transition-colors "
             >
               <RiCloseLine />
             </button>
           ) : (
             <button
               onClick={() => increaseCartQuantity(id, product)}
-              className="p-2 rounded-full hover:bg-background cursor-pointer transition-colors hover:text-primary"
+              className="p-2 rounded-full webkit-highlight hover:bg-background cursor-pointer transition-colors hover:text-primary"
             >
               <RiShoppingBagLine />
             </button>

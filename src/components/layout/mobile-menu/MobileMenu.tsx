@@ -41,19 +41,22 @@ const MobileMenu: FC<Props> = () => {
       // }}
       // animate={hidden ? "hidden" : "visible"}
       // transition={{ duration: 0.35 }}
-      className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-sm w-full bg-background  md:hidden rounded-xl h-14 text-foreground flex items-end px-2 justify-around py-1 z-40"
+      className="fixed   bottom-0 left-1/2 -translate-x-1/2 max-w-sm w-full bg-background  md:hidden rounded-xl h-14 text-foreground flex items-end px-2 justify-around py-1 z-40"
     >
       <CatalogModal />
       <CartModal />
       <div>
-        <div className="flex flex-col gap-1 justify-center items-center">
-          <Link href={authed ? "/profile" : "/login"}>
+        <Link
+          href={authed ? "/profile" : "/login"}
+          className="flex flex-col gap-1 justify-center items-center webkit-highlight active:text-primary"
+        >
+          <div>
             <HiOutlineUser className="" />
-          </Link>
+          </div>
           <div>
             <span>Профиль</span>
           </div>
-        </div>
+        </Link>
       </div>
     </motion.div>
   );

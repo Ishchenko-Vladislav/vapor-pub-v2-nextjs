@@ -15,10 +15,8 @@ type CartProps = {
 export const Cart: FC<CartProps> = ({ close }) => {
   const [style, setStyle] = useState("");
   const { cart, totalPrice, reset } = useCart();
-  // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   useEffect(() => {
     const theCSSprop = window.getComputedStyle(document.body, null).overflow;
-    // console.log("theCSSprop", theCSSprop);
     document.body.style.overflow = "hidden";
     setStyle(theCSSprop);
     return () => {
@@ -30,7 +28,7 @@ export const Cart: FC<CartProps> = ({ close }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="bg-black/70 fixed inset-0"
+      className="bg-black/70 fixed inset-0 z-50"
       onClick={close}
     >
       <motion.div
@@ -49,6 +47,7 @@ export const Cart: FC<CartProps> = ({ close }) => {
               <button onClick={close} className="p-1 flex justify-center items-center">
                 <RiCloseLine className="text-2xl" />
               </button>
+
               <div>Корзина</div>
             </div>
             {!!cart.length ? (

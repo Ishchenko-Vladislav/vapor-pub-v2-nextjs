@@ -31,7 +31,15 @@ import { uploadFile } from "@/hooks/file/utils";
 import { useGetAllProducts } from "@/hooks/product/useGetAllProducts";
 import { Product } from "./product/Product";
 import { v4 } from "uuid";
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 interface Props {}
 const formSchema = z.object({
   title: z.string().default("Без названия"),
@@ -49,6 +57,7 @@ const formSchema = z.object({
   //   price: z.number().default(0),
   price: z.coerce.number().min(0).default(0),
   status: z.boolean().default(false),
+  type: z.string(),
 });
 
 export const CatalogPage: FC<Props> = () => {
@@ -203,6 +212,37 @@ export const CatalogPage: FC<Props> = () => {
                       <FormControl>
                         <Input type="number" placeholder="Введите цену" {...field} />
                       </FormControl>
+                      {/* <FormDescription>This is your public display name.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Тип товара</FormLabel>
+
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Выберите тип товара" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Тип</SelectLabel>
+                            <SelectItem value="vozol-gear">Vozol Gear</SelectItem>
+                            <SelectItem value="vozol-star">Vozol Star</SelectItem>
+                            <SelectItem value="elfbar-ebdesing">Elfbar EBdesing</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+
+                      {/* <FormControl> */}
+                      {/* <Input type="number" placeholder="Введите цену" {...field} /> */}
+                      {/* </FormControl> */}
                       {/* <FormDescription>This is your public display name.</FormDescription> */}
                       <FormMessage />
                     </FormItem>
