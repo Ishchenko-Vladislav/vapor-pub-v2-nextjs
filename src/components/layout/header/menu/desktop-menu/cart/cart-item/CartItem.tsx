@@ -41,7 +41,7 @@ export const CartItem: FC<CartType> = ({ id, product, quantity }) => {
             {/* <RiCloseLine /> */}
           </button>
         </div>
-        <div className=" justify-end w-full gap-3 items-center md:flex hidden">
+        <div className=" justify-end w-full gap-3 items-end md:flex hidden">
           <div className="bg-background flex items-center w-fit h-fit p-px gap-1.5 rounded">
             <button
               onClick={() => decreaseCartQuantity(id)}
@@ -58,13 +58,30 @@ export const CartItem: FC<CartType> = ({ id, product, quantity }) => {
             </button>
           </div>
           <div className="text-sm font-light w-24 flex  flex-col items-end">
-            <div>{numberToEUR(product.price * quantity)}</div>
-            <div className="text-muted-foreground">{numberToEUR(product.price)} /шт</div>
+            <div>
+              {numberToEUR(
+                product.discount ? product.discountPrice * quantity : product.price * quantity
+              )}
+            </div>
+            <div className="text-muted-foreground">
+              {product.discount ? (
+                <div className="flex items-baseline flex-col">
+                  <div className="whitespace-nowrap text-red-500">
+                    {numberToEUR(product.discountPrice)} /шт
+                  </div>
+                  <div className="line-through whitespace-nowrap">
+                    {numberToEUR(product.price)} /шт
+                  </div>
+                </div>
+              ) : (
+                <div>{numberToEUR(product.price)} /шт</div>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="md:hidden block">
-          <div className="mt-3 flex justify-between items-center">
+          <div className="mt-3 flex justify-between items-end">
             <div className="flex gap-2 items-center">
               <button
                 onClick={() => decreaseCartQuantity(id)}
@@ -84,7 +101,20 @@ export const CartItem: FC<CartType> = ({ id, product, quantity }) => {
             </div>
             <div className="text-sm font-light">
               <div>{numberToEUR(product.price * quantity)}</div>
-              <div className="text-muted-foreground">{numberToEUR(product.price)} /шт</div>
+              <div className="text-muted-foreground">
+                {product.discount ? (
+                  <div className="flex items-baseline flex-col">
+                    <div className="whitespace-nowrap text-red-500">
+                      {numberToEUR(product.discountPrice)} /шт
+                    </div>
+                    <div className="line-through whitespace-nowrap">
+                      {numberToEUR(product.price)} /шт
+                    </div>
+                  </div>
+                ) : (
+                  <div>{numberToEUR(product.price)} /шт</div>
+                )}
+              </div>
             </div>
           </div>
         </div>

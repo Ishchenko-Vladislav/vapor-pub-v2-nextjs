@@ -83,7 +83,11 @@ export const CartModal: FC<Props> = () => {
             <div>{numberToEUR(totalPrice)}</div>
           </div>
           <div className="w-full flex flex-col gap-2">
-            <Button>Оформить заказ</Button>
+            <DialogClose asChild>
+              <Button asChild>
+                <Link href={"/checkout"}>Оформить заказ</Link>
+              </Button>
+            </DialogClose>
             <DialogClose asChild>
               <Button variant={"outline"}>Закрыть</Button>
             </DialogClose>

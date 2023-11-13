@@ -39,11 +39,12 @@ export const orderSchema = z.object({
     z.literal("на проверке"),
     z.literal("в ожидании отправки"),
     z.literal("отправлено"),
+    z.literal("завершено"),
     z.literal("отменено"),
   ]),
   email: z.string().email(),
   userName: z.string(),
-  phoneNumber: z.number(),
+  phoneNumber: z.union([z.number(), z.string()]),
   country: z.union([
     z.literal("Netherlands"),
     z.literal("Luxembourg"),
@@ -54,24 +55,23 @@ export const orderSchema = z.object({
   telegram: z.string(),
   totalPrice: z.number(),
   createdAt: z.date(),
+  city: z.string(),
   delivery: z.discriminatedUnion("shippingMethod", [
     z.object({
       shippingMethod: z.literal("PNL"),
-      price: z.number(),
-      postcode: z.number(),
-      city: z.string(),
+      price: z.number().default(6),
+      postcode: z.union([z.number(), z.string()]),
       street: z.string(),
-      apartment: z.number(),
-      house: z.number(),
+      apartment: z.union([z.number(), z.string()]),
+      house: z.union([z.number(), z.string()]),
     }),
     z.object({
       shippingMethod: z.literal("COUNTRY"),
-      price: z.number(),
-      postcode: z.number(),
-      city: z.string(),
+      price: z.number().default(8),
+      postcode: z.union([z.number(), z.string()]),
       street: z.string(),
-      apartment: z.number(),
-      house: z.number(),
+      apartment: z.union([z.number(), z.string()]),
+      house: z.union([z.number(), z.string()]),
     }),
     z.object({ shippingMethod: z.literal("HAND"), price: z.literal(0) }),
   ]),
@@ -91,6 +91,8 @@ export const promoSchema = z.object({
 });
 
 export type TOrderType = z.infer<typeof orderSchema>;
+export type TShippingMethod = TOrderType["delivery"];
+export type TShippingMethodNames = TShippingMethod["shippingMethod"];
 export type TUser = z.infer<typeof userSchema>;
 export type TProduct = z.infer<typeof productSchema>;
 export type TPromo = z.infer<typeof promoSchema>;

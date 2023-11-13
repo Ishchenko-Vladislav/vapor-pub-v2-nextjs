@@ -45,4 +45,4 @@ export const getMessageFromError = (error: any) => {
 };
 
 export const numberToEUR = (number: number) =>
-  Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(number);
+  Intl.NumberFormat("nl", { style: "currency", currency: "EUR" }).format(number);

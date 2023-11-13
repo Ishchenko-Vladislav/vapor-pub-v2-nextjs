@@ -74,7 +74,9 @@ export const Cart: FC<CartProps> = ({ close }) => {
               <span>Итого: </span>
               <span>{numberToEUR(totalPrice)}</span>
             </div>
-            <Button className="w-full">Оформить заказ</Button>
+            <Button onClick={close} asChild className="w-full">
+              <Link href={"/checkout"}>Оформить заказ</Link>
+            </Button>
           </div>
         ) : null}
       </motion.div>
