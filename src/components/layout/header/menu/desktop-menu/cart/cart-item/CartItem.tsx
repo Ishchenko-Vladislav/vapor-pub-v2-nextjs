@@ -7,6 +7,7 @@ import { TProduct } from "@/lib/schema";
 import { CartType, useCart } from "@/context/CartContext";
 import { MdOutlineImageNotSupported, MdDeleteOutline } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { numberToEUR } from "@/lib/utils";
 interface Props {}
 
@@ -40,33 +41,51 @@ export const CartItem: FC<CartType> = ({ id, product, quantity }) => {
             {/* <RiCloseLine /> */}
           </button>
         </div>
-        <div>
-          <div className="text-xs xs:text-sm ">
-            Цена: <span>{numberToEUR(product.price)}</span>
-          </div>
-        </div>
-        {/* <div className="flex gap-1 items-center">
-          <div>{numberToEUR(32)}</div>
-          <div>x</div>
-          <div>{numberToEUR(64)}</div>
-        </div> */}
-        <div className="mt-3">
-          <div className="flex gap-2 items-center">
+        <div className=" justify-end w-full gap-3 items-center md:flex hidden">
+          <div className="bg-background flex items-center w-fit h-fit p-px gap-1.5 rounded">
             <button
               onClick={() => decreaseCartQuantity(id)}
-              className="w-7 h-7 border flex justify-center items-center hover:border-primary text-xl hover:text-primary rounded"
+              className="p-1 hover:bg-primary rounded hover:text-background"
             >
-              -
+              <FiChevronLeft />
             </button>
-            <div className="w-7 h-7 border flex justify-center items-center rounded select-none pointer-events-none">
-              {getItemQuantity(id)}
-            </div>
+            <div className="pointer-events-none select-none w-6 text-center">{quantity}</div>
             <button
               onClick={() => increaseCartQuantity(id, product)}
-              className="w-7 h-7 border flex justify-center items-center hover:border-primary text-xl hover:text-primary rounded"
+              className="p-1 hover:bg-primary rounded hover:text-background"
             >
-              +
+              <FiChevronRight />
             </button>
+          </div>
+          <div className="text-sm font-light w-24 flex  flex-col items-end">
+            <div>{numberToEUR(product.price * quantity)}</div>
+            <div className="text-muted-foreground">{numberToEUR(product.price)} /шт</div>
+          </div>
+        </div>
+
+        <div className="md:hidden block">
+          <div className="mt-3 flex justify-between items-center">
+            <div className="flex gap-2 items-center">
+              <button
+                onClick={() => decreaseCartQuantity(id)}
+                className="w-7 h-7 border flex justify-center items-center hover:border-primary text-xl hover:text-primary rounded"
+              >
+                -
+              </button>
+              <div className="w-7 h-7 border flex justify-center items-center rounded select-none pointer-events-none">
+                {getItemQuantity(id)}
+              </div>
+              <button
+                onClick={() => increaseCartQuantity(id, product)}
+                className="w-7 h-7 border flex justify-center items-center hover:border-primary text-xl hover:text-primary rounded"
+              >
+                +
+              </button>
+            </div>
+            <div className="text-sm font-light">
+              <div>{numberToEUR(product.price * quantity)}</div>
+              <div className="text-muted-foreground">{numberToEUR(product.price)} /шт</div>
+            </div>
           </div>
         </div>
       </div>

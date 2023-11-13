@@ -41,6 +41,7 @@ export const CartContextProvider: FC<PropsWithChildren<Props>> = ({ children }) 
   });
 
   const increaseCartQuantity = (id: string, product: TProduct) => {
+    if (!product.status) return;
     const items = [...cart];
     if (items.find((item) => item.id === id) == null) {
       setCart([...cart, { id, quantity: 1, product }]);

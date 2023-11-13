@@ -235,7 +235,7 @@ export const CatalogPage: FC<Props> = () => {
                             <SelectLabel>Тип</SelectLabel>
                             <SelectItem value="vozol-gear">Vozol Gear</SelectItem>
                             <SelectItem value="vozol-star">Vozol Star</SelectItem>
-                            <SelectItem value="elfbar-ebdesing">Elfbar EBdesing</SelectItem>
+                            <SelectItem value="elfbar-ebdesign">Elfbar EBdesing</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>

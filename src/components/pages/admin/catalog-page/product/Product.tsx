@@ -142,15 +142,21 @@ export const Product: FC<ProductRef> = ({ id, product }) => {
         </div>
         <div className="flex items-center justify-between mt-auto ">
           <div>
-            {product.discount ? (
-              <div className="flex items-baseline gap-1">
-                <div className="line-through text-muted-foreground text-sm">
-                  {numberToEUR(product.price)}
-                </div>
-                <div className="text-red-500">{numberToEUR(product.discountPrice)}</div>
+            {product.status ? (
+              <div>
+                {product.discount ? (
+                  <div className="flex items-baseline gap-1">
+                    <div className="line-through text-muted-foreground text-sm">
+                      {numberToEUR(product.price)}
+                    </div>
+                    <div className="text-red-500">{numberToEUR(product.discountPrice)}</div>
+                  </div>
+                ) : (
+                  <div>{numberToEUR(product.price)}</div>
+                )}
               </div>
             ) : (
-              <div>{numberToEUR(product.price)}</div>
+              <div>Нет в наличии</div>
             )}
           </div>
           <div>
@@ -311,7 +317,7 @@ export const Product: FC<ProductRef> = ({ id, product }) => {
                                 <SelectLabel>Тип</SelectLabel>
                                 <SelectItem value="vozol-gear">Vozol Gear</SelectItem>
                                 <SelectItem value="vozol-star">Vozol Star</SelectItem>
-                                <SelectItem value="elfbar-ebdesing">Elfbar EBdesing</SelectItem>
+                                <SelectItem value="elfbar-ebdesign">Elfbar EBdesing</SelectItem>
                               </SelectGroup>
                             </SelectContent>
                           </Select>

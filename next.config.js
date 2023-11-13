@@ -10,7 +10,13 @@ const nextConfig = {
     // FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
   },
   images: {
-    domains: ["firebasestorage.googleapis.com"],
+    // domains: ["firebasestorage.googleapis.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+      },
+    ],
   },
 };
 

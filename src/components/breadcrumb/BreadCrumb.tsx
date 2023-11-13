@@ -16,18 +16,22 @@ export const BreadCrumb: FC<Props> = () => {
     <div>
       {pathNames.map((el, index) => {
         let href = `/${pathNames.slice(0, index + 1).join("/")}`;
+        const lastEl = index === pathNames.length - 1;
         const cur = index === 0 ? el : "/" + el;
+        if (lastEl) {
+          return (
+            <span key={index} className="w-fit h-fit p-0 text-sm">
+              {el}
+            </span>
+          );
+        }
         return (
           <span key={index}>
-            <Button key={el} variant={"link"} asChild className="w-fit h-fit p-0">
+            <Button variant={"link"} asChild className="w-fit h-fit p-0">
               <Link href={href}>{el}</Link>
             </Button>
             {pathNames.length !== index + 1 && <span className="px-2">/</span>}
           </span>
-          //   <Button key={el} variant={"link"} asChild className="w-fit h-fit p-0">
-
-          //     <Link href={href}>{cur}</Link>
-          //   </Button>
         );
       })}
     </div>
