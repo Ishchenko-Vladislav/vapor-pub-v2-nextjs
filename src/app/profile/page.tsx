@@ -1,12 +1,16 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 import {} from "firebase/auth";
 import { LogoutButton } from "@/components/pages/profile/LogoutButton";
 import { AdminHeader } from "@/components/pages/profile/AdminHeader";
+import { useLastOrder } from "@/hooks/order/userLastOrder";
+import { numberToEUR } from "@/lib/utils";
 interface Props {}
 
 const page = (props: Props) => {
+  const { order } = useLastOrder();
   return (
     <div>
       <div className="max-w-6xl w-full mx-auto px-2">
@@ -14,13 +18,48 @@ const page = (props: Props) => {
           <AdminHeader />
           <div>
             <div className="pb-5">
-              <span>Ваш последний заказ</span>
+              <div className="flex justify-between items-center">
+                <span>Ваш последний заказ</span>
+                {/* {order && order.id ? (
+                  <Button variant={"link"} asChild>
+                    <Link href={`/profile/orders/${order.id}}`}>Болше</Link>
+                  </Button>
+                ) : null} */}
+              </div>
             </div>
             <div className="w-full py-10 rounded-xl border-border shadow-md flex bg-secondary justify-around">
-              <div>#223</div>
-              <div>кол. 10</div>
-              <div>цена: 210$</div>
-              <div>статус: в ожидании отправки</div>
+              <div className="flex flex-col gap-2">
+                <div>
+                  <span>Номер заказа</span>
+                </div>
+                <div>
+                  # <span>{order?.id}</span>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div>
+                  <span>Кол. Товаров</span>
+                </div>
+                <div>
+                  <span>{order?.products.length}</span>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div>
+                  <span>цена:</span>
+                </div>
+                <div>
+                  <span>{numberToEUR(order?.totalPrice ?? 0)}</span>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div>
+                  <span>статус: </span>
+                </div>
+                <div>
+                  <span>{order?.status}</span>
+                </div>
+              </div>
             </div>
             <div>
               <Button variant={"link"} asChild>

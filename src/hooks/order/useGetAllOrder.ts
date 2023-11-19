@@ -23,7 +23,6 @@ export const useGetAllOrder = () => {
         }
       });
       setOrders(ord);
-      console.log("Current cities in CA: ", orders);
     });
 
     return () => {
