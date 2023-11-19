@@ -77,22 +77,30 @@ export const CartModal: FC<Props> = () => {
             </div>
           )}
         </div>
-        <div className="w-full h-fit fixed left-0 bottom-0 bg-background pt-2 px-2">
-          <div className="flex items-center gap-2">
-            <div>Итого:</div>
-            <div>{numberToEUR(totalPrice)}</div>
+        {cart.length > 0 ? (
+          <div className="w-full h-fit fixed left-0 bottom-0 bg-background pt-2 px-2">
+            <div className="flex items-center gap-2">
+              <div>Итого:</div>
+              <div>{numberToEUR(totalPrice)}</div>
+            </div>
+            <div className="w-full flex flex-col gap-2">
+              <DialogClose asChild>
+                <Button asChild>
+                  <Link href={"/checkout"}>Оформить заказ</Link>
+                </Button>
+              </DialogClose>
+              <DialogClose asChild>
+                <Button variant={"outline"}>Закрыть</Button>
+              </DialogClose>
+            </div>
           </div>
-          <div className="w-full flex flex-col gap-2">
-            <DialogClose asChild>
-              <Button asChild>
-                <Link href={"/checkout"}>Оформить заказ</Link>
-              </Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button variant={"outline"}>Закрыть</Button>
-            </DialogClose>
-          </div>
-        </div>
+        ) : (
+          <DialogClose asChild>
+            <button className="rounded-full mx-auto bg-background w-8 h-8 border border-primary flex justify-center items-center webkit-highlight active:text-primary">
+              <RiCloseLine className="scale-150" />
+            </button>
+          </DialogClose>
+        )}
         {/* <div className="fixed left-1/2 -translate-x-1/2 bottom-5 flex items-center gap-8">
           {!!cart.length && (
             <DialogClose asChild>

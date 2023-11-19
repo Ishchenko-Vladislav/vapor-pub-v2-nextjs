@@ -1,4 +1,5 @@
-import { z } from "zod";
+import { Timestamp } from "firebase/firestore";
+import { boolean, z } from "zod";
 // email: email!,
 // emailVerified,
 // phoneNumber,
@@ -54,7 +55,7 @@ export const orderSchema = z.object({
   ]),
   telegram: z.string(),
   totalPrice: z.number(),
-  createdAt: z.date(),
+  createdAt: z.union([z.date(), z.instanceof(Timestamp)]),
   city: z.string(),
   delivery: z.discriminatedUnion("shippingMethod", [
     z.object({
@@ -73,16 +74,41 @@ export const orderSchema = z.object({
       apartment: z.union([z.number(), z.string()]),
       house: z.union([z.number(), z.string()]),
     }),
-    z.object({ shippingMethod: z.literal("HAND"), price: z.literal(0) }),
+    z.object({ shippingMethod: z.literal("HAND"), price: z.literal(0).default(0) }),
   ]),
-  promo: z.union([
-    z.null(),
+  promo: z.discriminatedUnion("isActive", [
     z.object({
-      isActive: z.boolean(),
-      promo: z.string(),
+      isActive: z.literal(false),
+    }),
+    z.object({
+      isActive: z.literal(true),
+      name: z.string(),
       priceWithoutPromo: z.number(),
+      discount: z.number().default(0),
     }),
   ]),
+  products: z
+    .array(
+      z.object({
+        id: z.string(),
+        discount: z.boolean().default(false),
+        discountPrice: z.number().default(0),
+        price: z.number().default(0),
+        quantity: z.number(),
+        img: z.union([
+          z.null(),
+          z.object({
+            url: z.string().default(""),
+            path: z.string().default(""),
+          }),
+        ]),
+        totalPriceForProduct: z.number(),
+        // product: productSchema
+      })
+    )
+    .refine((data) => data.length >= 1, {
+      message: "Сначала выберите товар",
+    }),
 });
 
 export const promoSchema = z.object({

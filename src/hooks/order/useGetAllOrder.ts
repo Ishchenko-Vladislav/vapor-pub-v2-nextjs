@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase.config";
-import { TOrderType } from "@/lib/schema";
+import { TOrderType, orderSchema } from "@/lib/schema";
 import { collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
@@ -11,12 +11,19 @@ export const useGetAllOrder = () => {
     const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setIsEmpty(querySnapshot.empty);
-      const orders: TOrderType[] = [];
+      const ord: TOrderType[] = [];
       querySnapshot.forEach((doc) => {
         // cities.push(doc.data().name);
-        console.log("order doc", doc);
+        // console.log("order doc", doc);
+        try {
+          const isValidOrder = orderSchema.parse(doc.data());
+          ord.push(isValidOrder);
+        } catch (error) {
+          console.log(error);
+        }
       });
-      console.log("Current cities in CA: ", querySnapshot);
+      setOrders(ord);
+      console.log("Current cities in CA: ", orders);
     });
 
     return () => {

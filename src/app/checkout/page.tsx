@@ -10,7 +10,12 @@ import { numberToEUR } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { z } from "zod";
-
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useForm } from "react-hook-form";
 import { CheckoutField, CheckoutForm } from "@/components/pages/checkout/CheckoutForm";
 import { useCheckout } from "@/context/CheckoutContext";
@@ -23,7 +28,15 @@ const page = (props: Props) => {
 
   // 2. Define a submit handler.
 
-  const { checkValidPromo, isActivePromo, shippingPrice, promo, shippingName } = useCheckout();
+  const {
+    checkValidPromo,
+    createOrder,
+    isActivePromo,
+    shippingPrice,
+    promo,
+    shippingName,
+    promoPrice,
+  } = useCheckout();
   useEffect(() => {
     setMounted(true);
 
@@ -38,8 +51,8 @@ const page = (props: Props) => {
   return (
     <div>
       <div className="max-w-6xl w-full mx-auto px-2 py-10">
-        <div className="flex gap-10 items-start">
-          <div className="w-full">
+        <div className="flex gap-8 xl:gap-10 items-start flex-col-reverse md:flex-row justify-between">
+          <div className="w-full max-w-lg md:mx-0 mx-auto">
             <div>
               <span>Оформление заказа</span>
             </div>
@@ -47,17 +60,29 @@ const page = (props: Props) => {
               <CheckoutForm />
             </div>
           </div>
-          <div className="w-full max-w-lg  p-5">
-            <div className="pb-2 mb-2 border-b">
+          <div className="w-full max-w-lg md:mx-0 mx-auto">
+            {/* <div className="pb-2 mb-2 border-b">
               <span>Товары:</span>
-            </div>
+            </div> */}
 
             {!!cart.length ? (
-              <div className="flex flex-col gap-3">
-                {cart.map((el) => (
-                  <CheckoutItem key={el.id} {...el} />
-                ))}
-              </div>
+              // <div className="flex flex-col gap-3">
+              //   {cart.map((el) => (
+              //     <CheckoutItem key={el.id} {...el} />
+              //   ))}
+              // </div>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Товары</AccordionTrigger>
+                  <AccordionContent>
+                    <div className="flex flex-col gap-3">
+                      {cart.map((el) => (
+                        <CheckoutItem key={el.id} {...el} />
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             ) : (
               <div>Нет выбранных товаров</div>
             )}
@@ -102,7 +127,16 @@ const page = (props: Props) => {
                 </div>
                 <div className="flex items-center justify-between pt-2 text-lg">
                   <span>Итого:</span>
-                  <span>{numberToEUR(5)}</span>
+                  {isActivePromo ? (
+                    <div className="flex items-baseline gap-2">
+                      <span className="line-through text-muted-foreground">
+                        {numberToEUR(totalPrice + shippingPrice)}
+                      </span>
+                      <span className="text-red-500">{numberToEUR(promoPrice)}</span>
+                    </div>
+                  ) : (
+                    <span>{numberToEUR(totalPrice + shippingPrice)}</span>
+                  )}
                 </div>
               </div>
             </div>
