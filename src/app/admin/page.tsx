@@ -7,7 +7,7 @@ interface Props {}
 const page = (props: Props) => {
   return (
     <div>
-      <div className="max-w-6xl w-full mx-auto">
+      <div className="max-w-6xl w-full mx-auto pb-20">
         <OrderPage />
       </div>
     </div>

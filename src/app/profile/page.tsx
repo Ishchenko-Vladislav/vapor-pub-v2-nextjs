@@ -7,14 +7,16 @@ import { LogoutButton } from "@/components/pages/profile/LogoutButton";
 import { AdminHeader } from "@/components/pages/profile/AdminHeader";
 import { useLastOrder } from "@/hooks/order/userLastOrder";
 import { numberToEUR } from "@/lib/utils";
+import { useAuth } from "@/context/Authorization";
 interface Props {}
 
 const page = (props: Props) => {
-  const { order } = useLastOrder();
+  const { user } = useAuth();
+  const { order } = useLastOrder(user && user.uid);
   return (
-    <div>
-      <div className="max-w-6xl w-full mx-auto px-2">
-        <div>
+    <div className="flex flex-col flex-1">
+      <div className="max-w-6xl w-full mx-auto px-2 flex flex-col flex-1">
+        <div className="flex flex-col flex-1">
           <AdminHeader />
           <div>
             <div className="pb-5">
@@ -28,49 +30,56 @@ const page = (props: Props) => {
               </div>
             </div>
 
-            <div className="w-full overflow-x-auto flex">
-              <div className="w-full py-2 xs:py-6 rounded-xl border-border shadow-md flex bg-secondary justify-around shrink-0 min-w-[600px] overflow-x-auto">
-                <div className="flex flex-col gap-2">
-                  <div>
-                    <span>Номер заказа</span>
+            {order ? (
+              <div className="w-full overflow-x-auto flex">
+                <div className="w-full py-2 xs:py-6 rounded-xl border-border shadow-md flex bg-secondary justify-around shrink-0 min-w-[600px] overflow-x-auto">
+                  <div className="flex flex-col gap-2">
+                    <div>
+                      <span>Номер заказа</span>
+                    </div>
+                    <div>
+                      # <span>{order?.id}</span>
+                    </div>
                   </div>
-                  <div>
-                    # <span>{order?.id}</span>
+                  <div className="flex flex-col gap-2">
+                    <div>
+                      <span>Кол. Товаров</span>
+                    </div>
+                    <div>
+                      <span>{order?.products.length}</span>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div>
-                    <span>Кол. Товаров</span>
+                  <div className="flex flex-col gap-2">
+                    <div>
+                      <span>цена:</span>
+                    </div>
+                    <div>
+                      <span>{numberToEUR(order?.totalPrice ?? 0)}</span>
+                    </div>
                   </div>
-                  <div>
-                    <span>{order?.products.length}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div>
-                    <span>цена:</span>
-                  </div>
-                  <div>
-                    <span>{numberToEUR(order?.totalPrice ?? 0)}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div>
-                    <span>статус: </span>
-                  </div>
-                  <div>
-                    <span>{order?.status}</span>
+                  <div className="flex flex-col gap-2">
+                    <div>
+                      <span>статус: </span>
+                    </div>
+                    <div>
+                      <span>{order?.status}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="w-full bg-secondary p-3 text-center">
+                На данный момент у вас нет заказов
+              </div>
+            )}
+
             <div>
               <Button variant={"link"} asChild>
                 <Link href="/profile/orders">Все заказы</Link>
               </Button>
             </div>
           </div>
-          <div className="flex flex-col xs:flex-row items-stretch justify-between gap-5 py-20">
+          {/* <div className="flex flex-col xs:flex-row items-stretch justify-between gap-5 py-20">
             <div className="p-2 sm:p-3 md:p-5 bg-secondary rounded-xl shadow-md text-center max-w-xs w-full xs:mx-0 mx-auto">
               <div className="flex flex-col justify-center items-center h-full">
                 <span>Количество завершенных заказов</span>
@@ -95,8 +104,8 @@ const page = (props: Props) => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="pb-20">
+          </div> */}
+          <div className="pb-20 mt-auto">
             <LogoutButton />
           </div>
         </div>

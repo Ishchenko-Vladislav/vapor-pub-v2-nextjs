@@ -1,6 +1,7 @@
 "use client";
 import { DataTable } from "@/components/order-table/OrderTable";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/Authorization";
 import { useGetAllOrder } from "@/hooks/order/useGetAllOrder";
 import { TOrderType } from "@/lib/schema";
 import { formatCustomDate, numberToEUR } from "@/lib/utils";
@@ -14,7 +15,8 @@ import { FC } from "react";
 interface Props {}
 
 export const Orders: FC<Props> = () => {
-  const { isEmpty, orders } = useGetAllOrder();
+  const { user } = useAuth();
+  const { isEmpty, orders } = useGetAllOrder(user && user.uid);
   const columns: ColumnDef<TOrderType>[] = [
     {
       accessorKey: "id",

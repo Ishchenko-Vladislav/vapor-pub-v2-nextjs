@@ -1,14 +1,24 @@
 import { db } from "@/lib/firebase.config";
 import { TOrderType, orderSchema } from "@/lib/schema";
-import { collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, doc, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
-export const useGetAllOrder = () => {
+type useGetAllOrder = {
+  id: string | undefined | null;
+};
+export const useGetAllOrder = (id: string | null | undefined = undefined) => {
   const [orders, setOrders] = useState<TOrderType[]>([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+    let q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+    if (id) {
+      q = query(
+        collection(db, "orders"),
+        orderBy("createdAt", "desc"),
+        where("customerId", "==", id)
+      );
+    }
+    // const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setIsEmpty(querySnapshot.empty);
       const ord: TOrderType[] = [];
