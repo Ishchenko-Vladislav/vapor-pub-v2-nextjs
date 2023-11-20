@@ -27,37 +27,40 @@ const page = (props: Props) => {
                 ) : null} */}
               </div>
             </div>
-            <div className="w-full py-10 rounded-xl border-border shadow-md flex bg-secondary justify-around">
-              <div className="flex flex-col gap-2">
-                <div>
-                  <span>Номер заказа</span>
+
+            <div className="w-full overflow-x-auto flex">
+              <div className="w-full py-2 xs:py-6 rounded-xl border-border shadow-md flex bg-secondary justify-around shrink-0 min-w-[600px] overflow-x-auto">
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <span>Номер заказа</span>
+                  </div>
+                  <div>
+                    # <span>{order?.id}</span>
+                  </div>
                 </div>
-                <div>
-                  # <span>{order?.id}</span>
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <span>Кол. Товаров</span>
+                  </div>
+                  <div>
+                    <span>{order?.products.length}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div>
-                  <span>Кол. Товаров</span>
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <span>цена:</span>
+                  </div>
+                  <div>
+                    <span>{numberToEUR(order?.totalPrice ?? 0)}</span>
+                  </div>
                 </div>
-                <div>
-                  <span>{order?.products.length}</span>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div>
-                  <span>цена:</span>
-                </div>
-                <div>
-                  <span>{numberToEUR(order?.totalPrice ?? 0)}</span>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div>
-                  <span>статус: </span>
-                </div>
-                <div>
-                  <span>{order?.status}</span>
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <span>статус: </span>
+                  </div>
+                  <div>
+                    <span>{order?.status}</span>
+                  </div>
                 </div>
               </div>
             </div>

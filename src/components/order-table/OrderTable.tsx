@@ -91,12 +91,12 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-between  p-4 ">
-        <div className="flex items-center gap-2 text-muted-foreground text-sm">
+      <div className="flex items-center justify-between  p-4 flex-col sm:flex-row gap-2">
+        <div className="flex items-center gap-2 text-muted-foreground text-sm self-start sm:self-center">
           <div>Всего заказов:</div>
           <div>{data.length}</div>
         </div>
-        <div className="flex items-center justify-end space-x-2">
+        <div className="flex items-center justify-end space-x-2 self-end sm:self-center">
           <Button
             variant="outline"
             size="sm"
