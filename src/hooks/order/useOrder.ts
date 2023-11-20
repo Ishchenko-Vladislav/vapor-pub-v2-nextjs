@@ -1,29 +1,24 @@
 import { db } from "@/lib/firebase.config";
 import { TOrderType, orderSchema } from "@/lib/schema";
-import { collection, doc, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { collection, doc, limit, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-export const useLastOrder = (id: string | null | undefined = undefined) => {
+type TExist = "exist" | "not-exist" | "loading";
+export const useOrder = (id: string | null | undefined = undefined) => {
   const [order, setOrder] = useState<TOrderType | null>(null);
-  const [isEmpty, setIsEmpty] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [exist, setExist] = useState<TExist>("loading");
 
   useEffect(() => {
     if (!id) return;
-    const q = query(
-      collection(db, "orders"),
-      orderBy("createdAt", "desc"),
-      where("customerId", "==", id),
-      limit(1)
-    );
+    const q = query(collection(db, "orders"), where("id", "==", id), limit(1));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {
-        setIsEmpty(querySnapshot.empty);
+        setExist("not-exist");
         return;
       } else {
         const d = orderSchema.parse(querySnapshot.docs[0].data());
-        console.log("last order here", d);
         setOrder(d);
+        setExist("exist");
       }
     });
 
@@ -32,5 +27,8 @@ export const useLastOrder = (id: string | null | undefined = undefined) => {
     };
   }, [id]);
 
-  return { order };
+  return {
+    order,
+    exist,
+  };
 };

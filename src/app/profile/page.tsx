@@ -8,6 +8,8 @@ import { AdminHeader } from "@/components/pages/profile/AdminHeader";
 import { useLastOrder } from "@/hooks/order/userLastOrder";
 import { numberToEUR } from "@/lib/utils";
 import { useAuth } from "@/context/Authorization";
+import { GoLinkExternal } from "react-icons/go";
+
 interface Props {}
 
 const page = (props: Props) => {
@@ -38,7 +40,13 @@ const page = (props: Props) => {
                       <span>Номер заказа</span>
                     </div>
                     <div>
-                      # <span>{order?.id}</span>
+                      <Link
+                        className="flex items-center gap-1"
+                        href={`/profile/orders/${order.id}`}
+                      >
+                        #<span className="underline"> {order?.id}</span>
+                        <GoLinkExternal />
+                      </Link>
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">

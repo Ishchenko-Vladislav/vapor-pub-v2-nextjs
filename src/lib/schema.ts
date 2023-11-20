@@ -102,6 +102,7 @@ export const orderSchema = z.object({
             path: z.string().default(""),
           }),
         ]),
+        title: z.string().default(""),
         totalPriceForProduct: z.number(),
         // product: productSchema
       })

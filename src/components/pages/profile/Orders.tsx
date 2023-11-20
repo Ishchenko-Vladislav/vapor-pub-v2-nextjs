@@ -11,7 +11,7 @@ import { Timestamp } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-
+import { GoLinkExternal } from "react-icons/go";
 interface Props {}
 
 export const Orders: FC<Props> = () => {
@@ -21,7 +21,15 @@ export const Orders: FC<Props> = () => {
     {
       accessorKey: "id",
       header: "Номер заказа",
-      cell: ({ row }) => <div className="">#{row.getValue("id")}</div>,
+      cell: ({ row }) => (
+        <Link
+          href={`/profile/orders/${row.getValue("id")}`}
+          className="underline flex items-center gap-1"
+        >
+          #{row.getValue("id")}
+          <GoLinkExternal />
+        </Link>
+      ),
     },
     {
       accessorKey: "email",

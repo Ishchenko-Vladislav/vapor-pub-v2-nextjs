@@ -112,6 +112,7 @@ export const CheckoutContextProvider: FC<PropsWithChildren> = ({ children }) => 
         return {
           discount: el.product.discount,
           discountPrice: el.product.discountPrice,
+          title: el.product.title,
           id: el.product.id,
           img: el.product.img,
           price: el.product.price,
