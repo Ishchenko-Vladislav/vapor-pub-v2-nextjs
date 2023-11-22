@@ -5,6 +5,6 @@ interface Props {}
 
 const layout: FC<PropsWithChildren<Props>> = ({ children }) => {
   // const {} = CatalogContextProvider()
-  return <CatalogContextProvider>{children}</CatalogContextProvider>;
+  return <>{children}</>;
 };
 export default layout;

@@ -5,6 +5,7 @@ import { QueryClient, useQuery, QueryClientProvider } from "@tanstack/react-quer
 import { ToasterContainer } from "./Toaster";
 import { AuthorizationProvider } from "@/context/Authorization";
 import { CartContextProvider } from "@/context/CartContext";
+import { CatalogContextProvider } from "@/context/CatalogContext";
 
 export const RootProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = new QueryClient({
@@ -18,10 +19,10 @@ export const RootProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <AuthorizationProvider>
       <CartContextProvider>
-        <QueryClientProvider client={queryClient}>
+        <CatalogContextProvider>
           {children}
           <ToasterContainer />
-        </QueryClientProvider>
+        </CatalogContextProvider>
       </CartContextProvider>
     </AuthorizationProvider>
   );

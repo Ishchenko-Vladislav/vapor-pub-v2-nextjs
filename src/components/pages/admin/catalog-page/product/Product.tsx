@@ -76,6 +76,9 @@ const formSchema = z.object({
   type: z.string(),
   price: z.coerce.number().min(0).default(0),
   status: z.boolean().default(false),
+
+  topSeller: z.boolean().default(false),
+  newProduct: z.boolean().default(false),
 });
 
 export const Product: FC<ProductRef> = ({ id, product }) => {
@@ -120,6 +123,16 @@ export const Product: FC<ProductRef> = ({ id, product }) => {
           src={"/discount.png"}
           alt="discoutn"
         />
+      ) : null}
+      {product.topSeller || product.newProduct ? (
+        <div className="absolute top-2 left-2 flex flex-col gap-1 xs:gap-2 text-center z-10">
+          {product.topSeller ? (
+            <div className=" bg-red-500 text-white text-sm px-2 rounded-lg">Топ продаж</div>
+          ) : null}
+          {product.newProduct ? (
+            <div className=" bg-blue-500 text-white text-sm px-2 rounded-lg">Новинка</div>
+          ) : null}
+        </div>
       ) : null}
       <div className="w-full mx-auto aspect-square relative shrink-0">
         {/* <img src="1.jpg" alt="dd" className="w-full object-contain mix-blend-darken" /> */}
@@ -369,6 +382,66 @@ export const Product: FC<ProductRef> = ({ id, product }) => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Товар в наличии</FormLabel>
+                          <FormControl>
+                            {/* <Input placeholder="Введите пароль" {...field} /> */}
+                            <div className="flex gap-2 items-center">
+                              <div>нет</div>
+                              <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                  checked={field.value}
+                                  onChange={field.onChange}
+                                  type="checkbox"
+                                  className="sr-only peer"
+                                />
+                                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-primary/70 dark:peer-focus:ring-primary/80 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                                {/* <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Скидка
+                          </span> */}
+                              </label>
+                              <div>да</div>
+                            </div>
+                          </FormControl>
+                          {/* <FormDescription>This is your public display name.</FormDescription> */}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="topSeller"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Топ продаж</FormLabel>
+                          <FormControl>
+                            {/* <Input placeholder="Введите пароль" {...field} /> */}
+                            <div className="flex gap-2 items-center">
+                              <div>нет</div>
+                              <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                  checked={field.value}
+                                  onChange={field.onChange}
+                                  type="checkbox"
+                                  className="sr-only peer"
+                                />
+                                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-primary/70 dark:peer-focus:ring-primary/80 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                                {/* <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Скидка
+                          </span> */}
+                              </label>
+                              <div>да</div>
+                            </div>
+                          </FormControl>
+                          {/* <FormDescription>This is your public display name.</FormDescription> */}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="newProduct"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Новинка</FormLabel>
                           <FormControl>
                             {/* <Input placeholder="Введите пароль" {...field} /> */}
                             <div className="flex gap-2 items-center">

@@ -23,6 +23,16 @@ export const ProductItem: FC<ProductRef> = ({ id, product }) => {
           alt="discount"
         />
       ) : null}
+      {product.topSeller || product.newProduct ? (
+        <div className="absolute top-2 left-2 flex flex-col gap-1 xs:gap-2 text-center z-10">
+          {product.topSeller ? (
+            <div className=" bg-red-500 text-white text-sm px-2 rounded-lg">Топ продаж</div>
+          ) : null}
+          {product.newProduct ? (
+            <div className=" bg-blue-500 text-white text-sm px-2 rounded-lg">Новинка</div>
+          ) : null}
+        </div>
+      ) : null}
       <div className="w-full mx-auto aspect-square relative shrink-0">
         {/* <img src="1.jpg" alt="dd" className="w-full object-contain mix-blend-darken" /> */}
         {product.img ? (

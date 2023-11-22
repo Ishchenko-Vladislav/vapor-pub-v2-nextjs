@@ -31,6 +31,8 @@ export const productSchema = z.object({
   price: z.number().default(0),
   status: z.boolean().default(false),
   type: z.string().default("unknown"),
+  topSeller: z.boolean().default(false),
+  newProduct: z.boolean().default(false),
 });
 
 export const orderSchema = z.object({
@@ -104,6 +106,7 @@ export const orderSchema = z.object({
         ]),
         title: z.string().default(""),
         totalPriceForProduct: z.number(),
+
         // product: productSchema
       })
     )
