@@ -4,8 +4,12 @@ import { collection, doc, limit, onSnapshot, query, where } from "firebase/fires
 import { useEffect, useState } from "react";
 
 type TExist = "exist" | "not-exist" | "loading";
+type TOrderRef = {
+  order: TOrderType;
+  id: string;
+};
 export const useOrder = (id: string | null | undefined = undefined) => {
-  const [order, setOrder] = useState<TOrderType | null>(null);
+  const [orderRef, setOrderRef] = useState<TOrderRef | null>(null);
   const [exist, setExist] = useState<TExist>("loading");
 
   useEffect(() => {
@@ -17,7 +21,10 @@ export const useOrder = (id: string | null | undefined = undefined) => {
         return;
       } else {
         const d = orderSchema.parse(querySnapshot.docs[0].data());
-        setOrder(d);
+        setOrderRef({
+          order: d,
+          id: querySnapshot.docs[0].id,
+        });
         setExist("exist");
       }
     });
@@ -28,7 +35,7 @@ export const useOrder = (id: string | null | undefined = undefined) => {
   }, [id]);
 
   return {
-    order,
+    orderRef,
     exist,
   };
 };

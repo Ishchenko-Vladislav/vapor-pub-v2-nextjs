@@ -9,7 +9,7 @@ interface Props {}
 const page = (props: Props) => {
   return (
     <div>
-      <div className="max-w-6xl w-full mx-auto px-2">
+      <div className="max-w-6xl w-full mx-auto px-2 pb-20">
         <SimpleHeader title="История заказов" />
         <Orders />
       </div>

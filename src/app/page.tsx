@@ -41,6 +41,56 @@ export default function Home() {
             </div>
           ) : null}
         </div>
+
+        <div className="w-full flex flex-col gap-6 py-10">
+          <div>Так же вы можете посетить наш блог для дополнительной информации</div>
+          <div>
+            <div className="flex gap-10 overflow-x-auto">
+              <Link
+                href="/blog/vred-kalyanov"
+                className="w-full flex flex-col gap-4 xs:min-w-[auto] min-w-[80%] max-w-[80%]"
+              >
+                <div className="w-full aspect-video relative">
+                  <Image
+                    fill
+                    className="object-cover"
+                    src={"/blog-images/vidy-kalianov1597448.jpg"}
+                    alt="vidy-kalianov"
+                  />
+                </div>
+                <div className="font-bold text-xl">"Что вреднее?" Кальяны vs вейпы</div>
+              </Link>
+              <Link
+                href="/blog/vred-odnorazok"
+                className="w-full flex flex-col gap-4 xs:min-w-[auto] min-w-[80%] max-w-[80%]"
+              >
+                <div className="w-full aspect-video relative">
+                  <Image
+                    fill
+                    src={"/blog-images/Elf-Bar-1500-Disposa.jpg"}
+                    alt="Elf-Bar-1500-Disposa"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="font-bold text-xl">"Что вреднее?" HQD против сигарет</div>
+              </Link>
+              <Link
+                href="/blog/kto-takiye-klaudcheyzery"
+                className="w-full flex flex-col gap-4 xs:min-w-[auto] min-w-[80%] max-w-[80%]"
+              >
+                <div className="w-full aspect-video relative">
+                  <Image
+                    fill
+                    src={"/blog-images/maxresdefault.jpg"}
+                    alt="Elf-Bar-1500-Disposa"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="font-bold text-xl">Вейпинговые соревания</div>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
