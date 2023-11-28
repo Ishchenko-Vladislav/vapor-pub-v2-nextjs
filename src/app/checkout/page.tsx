@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useCart } from "@/context/CartContext";
 // import { useCheckout } from "@/hooks/checkout/useCheckout";
 import { orderSchema } from "@/lib/schema";
-import { numberToEUR } from "@/lib/utils";
+import { cn, numberToEUR } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { z } from "zod";
@@ -36,6 +36,7 @@ const page = (props: Props) => {
     promo,
     shippingName,
     promoPrice,
+    isFreeShipping,
   } = useCheckout();
   useEffect(() => {
     setMounted(true);
@@ -117,13 +118,26 @@ const page = (props: Props) => {
             </div>
             <div className="p-4 rounded-xl bg-secondary mt-5">
               <div className="flex flex-col">
+                {isFreeShipping ? (
+                  <div className="flex items-center justify-between border-b py-2">
+                    <span>
+                      <i>{isFreeShipping}</i>
+                    </span>
+                  </div>
+                ) : null}
                 <div className="flex items-center justify-between border-b py-2">
                   <span>Сумма по товарам:</span>
                   <span>{numberToEUR(totalPrice)}</span>
                 </div>
                 <div className="flex items-center justify-between border-b py-2">
                   <span>Стоимость доставки:</span>
-                  <span>{numberToEUR(shippingPrice)}</span>
+                  <span
+                    className={cn({
+                      ["line-through text-red-500"]: isFreeShipping,
+                    })}
+                  >
+                    {numberToEUR(shippingPrice)}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between pt-2 text-lg">
                   <span>Итого:</span>

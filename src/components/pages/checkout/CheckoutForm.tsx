@@ -197,7 +197,7 @@ export const CheckoutForm: FC<Props> = () => {
                       <SelectItem value="COUNTRY">
                         Доставка в другие страны {numberToEUR(8)}
                       </SelectItem>
-                      <SelectItem value="PNL">Доставка PostNL {numberToEUR(6)}</SelectItem>
+                      <SelectItem value="PNL">Доставка PostNL {numberToEUR(5)}</SelectItem>
                       <SelectItem value="HAND">Самовывоз {numberToEUR(0)}</SelectItem>
                     </SelectGroup>
                   </SelectContent>

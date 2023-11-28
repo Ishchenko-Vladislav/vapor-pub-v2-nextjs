@@ -113,15 +113,10 @@ const page: NextPage<Props> = ({ params }) => {
                                 />
                               </div>
                               <div className="flex flex-col gap-1">
-                                <Button className="w-fit h-fit " variant={"link"} asChild>
-                                  <Link
-                                    className="whitespace-pre-wrap"
-                                    href={`/catalog/${product.id}}`}
-                                  >
-                                    {product.title}
-                                  </Link>
-                                </Button>
-                                <div className="flex items-center gap-1 xs:gap-3 px-4 text-sm text-muted-foreground">
+                                <div>
+                                  <span>{product.title}</span>
+                                </div>
+                                <div className="flex items-center gap-1 xs:gap-3 text-sm text-muted-foreground">
                                   <div>
                                     {product.discount ? (
                                       <div className="flex gap-1 xs:gap-2">

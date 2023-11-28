@@ -27,6 +27,7 @@ type TCheckoutContext = {
   shippingPrice: number;
   promoPrice: number;
   isLoading: boolean;
+  isFreeShipping: TShippingFree;
   checkValidPromo: (text: string) => void;
   createOrder: (values: CheckoutField) => void;
   onChangeShippingMethod: (t: TShippingMethodNames) => void;
@@ -34,11 +35,15 @@ type TCheckoutContext = {
 const CheckoutContext = createContext({} as TCheckoutContext);
 
 export const useCheckout = () => useContext(CheckoutContext);
-
+type TShippingFree =
+  | null
+  | "При заказе от 100 EUR доставка по нидерландам бесплатная"
+  | "При заказе от 150 EUR доставка в другие страны бесплатная";
 export const CheckoutContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [promo, setPromo] = useState<TPromo | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { totalPrice, cart, reset } = useCart();
+  const [isFreeShipping, setIsFreeShipping] = useState<TShippingFree>(null);
   const { push } = useRouter();
   // const [promoPrice, setPromoPrice] = useState<number>(0);
   const [isActivePromo, setIsActivePromo] = useState<boolean>(false);
@@ -67,10 +72,19 @@ export const CheckoutContextProvider: FC<PropsWithChildren> = ({ children }) => 
     const d: Record<TShippingMethodNames, number> = {
       COUNTRY: 8,
       HAND: 0,
-      PNL: 6,
+      PNL: 5,
     };
+    if (totalPrice >= 100 && shippingName === "PNL") {
+      setIsFreeShipping("При заказе от 100 EUR доставка по нидерландам бесплатная");
+      return 0;
+    } else if (totalPrice >= 150 && shippingName === "COUNTRY") {
+      setIsFreeShipping("При заказе от 150 EUR доставка в другие страны бесплатная");
+      return 0;
+    } else {
+      setIsFreeShipping(null);
+    }
     return d[shippingName];
-  }, [shippingName]);
+  }, [shippingName, totalPrice]);
 
   const promoPrice: number = useMemo(() => {
     if (isActivePromo && promo) {
@@ -175,6 +189,7 @@ export const CheckoutContextProvider: FC<PropsWithChildren> = ({ children }) => 
         onChangeShippingMethod,
         createOrder,
         isLoading,
+        isFreeShipping,
       }}
     >
       {children}

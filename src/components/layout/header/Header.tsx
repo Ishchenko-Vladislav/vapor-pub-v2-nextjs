@@ -19,6 +19,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 interface Props {}
 const MobileMenu = dynamic(() => import("./menu/mobile-menu/MobileMenu"), {
   ssr: false, // Отключаем SSR для динамической загрузки
@@ -35,10 +36,20 @@ export const Header: FC<Props> = () => {
     <div className="border-b border-border py-3 sticky top-0 bg-secondary z-50 w-full h-fit px-2">
       <div className="flex items-center max-w-6xl w-full mx-auto gap-4 font-medium justify-between">
         <Link className="text-xl" href={"/"}>
-          Vapor{" "}
+          {/* Vapor{" "}
           <sup>
             <span className="text-primary">P</span>ub
-          </sup>
+          </sup> */}
+          <div className="relative">
+            <Image
+              src={"/image_2.png"}
+              alt=""
+              width={500}
+              height={500}
+              className="object-contain w-20"
+              quality={100}
+            />
+          </div>
         </Link>
         <div className="text-sm md:flex hidden">
           {/* <Button className="text-foreground" variant={"link"} asChild>

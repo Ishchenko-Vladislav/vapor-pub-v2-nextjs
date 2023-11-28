@@ -15,8 +15,8 @@ export default function Home() {
 
         <div className="bg-[#181818]  p-4 text-white font-semibold rounded-xl w-fit mx-auto max-w-4xl text-center">
           <div>
-            Так же у нас действует акция, при заказе от 100 EUR доставка по нидерландам бесплатная
-            (при заказе в другие страны от 180 EUR)
+            При заказе от 100 EUR доставка по Нидерландам бесплатная (при заказе в другие страны от
+            150 EUR)
           </div>
         </div>
 
